@@ -1,0 +1,52 @@
+.sp-hubspot-grid.hs-three-grid {
+	 padding: 0px;
+	 width: 100%;
+	 list-style-type: none;
+	 height: 100%;
+}
+
+.sp-hubspot-grid.hs-three-grid .sp-hs-post{
+	float: left;
+	display: block;
+	width: 33.05%;
+  padding: 15px;
+	margin: 0;
+	line-height: 21px;
+}
+.sp-hubspot-grid.hs-three-grid li.sp-hs-post:nth-child(3n+1) {
+  clear: left;
+}
+
+.sp-hubspot-grid.hs-three-grid .hubspot-post-wrapper{
+  color: #202024;
+  text-decoration: none;
+	outline: none;
+}
+
+.sp-hubspot-grid.hs-three-grid li.sp-hs-post .thumbnail-bg{
+  background-color: #ffffff;
+  width: 100%;
+  max-height: 217px;
+	height: 250px;
+	padding: 0px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.sp-hubspot-grid.hs-three-grid .title{
+  font-weight: 700 !important;
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1100px){
+  .sp-hubspot-grid.hs-three-grid li.sp-hs-post{
+    width: 33.3% !important;
+  }
+}
+
+@media(max-width: 768px) {
+	.sp-hubspot-grid.hs-three-grid li.sp-hs-post{
+		width: 100%;
+	}
+}
