@@ -55,16 +55,20 @@ class SP_HUBSPOT_POSTS{
 
     $shortcode_atts = shortcode_atts( array(
       'limit' => 3,
-      'state' => 'published'
+      'state' => 'published',
+      'sort'  => '-publishDate' // sorts blog posts in descending order based on publishDate
     ), $atts, $this->shortcode_str );
+
 
     // SHOW ERROR IF API KEY IS NOT SET
     if( empty( $hubspot_api_key ) ){
       return "Add Hubspot Api Key";
     }
 
+    $query_params = "&limit=".$shortcode_atts['limit']."&state=".$shortcode_atts['state']."&sort=".$shortcode_atts['sort'];
+
     curl_setopt_array( $curl, array(
-      CURLOPT_URL => "https://api.hubapi.com/cms/v3/blogs/posts?hapikey=".$hubspot_api_key."&limit=".$shortcode_atts['limit']."&state=".$shortcode_atts['state'],
+      CURLOPT_URL => "https://api.hubapi.com/cms/v3/blogs/posts?hapikey=".$hubspot_api_key.$query_params,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
