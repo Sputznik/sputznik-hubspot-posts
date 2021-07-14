@@ -12,6 +12,14 @@
 defined( 'ABSPATH' ) or die( 'Hey you cannot access this plugin, you silly human' );
 
 define( 'SP_HUBSPOT_DIR_URL', plugin_dir_url(__FILE__) );
+define( 'SP_HUBSPOT_DIR_PATH', plugin_dir_path(__FILE__) );
 
-// INCLUDE FILE
-require_once('class-sp-hubspot-posts.php');
+$inc_files = array(
+  "class-sp-hubspot-base.php",
+  "class-sp-hubspot-admin.php",
+  "shortcode/shortcode.php"
+);
+
+foreach( $inc_files as $inc_file ){
+  require_once( $inc_file );
+}
