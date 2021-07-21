@@ -91,8 +91,8 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 	function get_hubspot_api(){ return $this->hubspot_api_key; }
 
 	function set_hubspot_api(){
-		$hubspot_admin = new SP_HUBSPOT_ADMIN;
-		$this->hubspot_api_key = $hubspot_admin->get_settings()['api_key'];
+		global $sp_hubspot_admin;
+		$this->hubspot_api_key = $sp_hubspot_admin->get_settings()['api_key'];
 	}
 
 	function main_shortcode( $atts ){

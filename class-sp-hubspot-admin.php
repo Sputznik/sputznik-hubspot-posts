@@ -1,6 +1,6 @@
 <?php
 
-class SP_HUBSPOT_ADMIN extends SP_HUBSPOT_BASE{
+class SP_HUBSPOT_ADMIN{
 
   var $settings;
 
@@ -47,4 +47,5 @@ class SP_HUBSPOT_ADMIN extends SP_HUBSPOT_BASE{
 
 }
 
-SP_HUBSPOT_ADMIN::getInstance();
+global $sp_hubspot_admin;
+$sp_hubspot_admin = new SP_HUBSPOT_ADMIN;
