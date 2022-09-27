@@ -11,15 +11,16 @@ class SP_HUBSPOT_POSTS_SHORTCODE extends SP_HUBSPOT_SHORTCODE{
 	}
 
 	function unique_atts(){
-		return array('limit', 'state','sort');
+		return array( 'limit', 'state', 'sort', 'tag__in' );
 	}
 
 	function get_default_atts(){
 		return array(
-      'limit' => 3,
-      'state' => 'published',
-      'sort'  => '-publishDate', // sorts blog posts in descending order based on publishDate
-			'cache'	=> 10 	// cache for minutes
+      'limit' 	=> 3,
+			'tag__in'	=> '',
+      'state' 	=> 'published',
+      'sort'  	=> '-publishDate', // sorts blog posts in descending order based on publishDate
+			'cache'		=> 10 	// cache for minutes
 		);
 	}
 

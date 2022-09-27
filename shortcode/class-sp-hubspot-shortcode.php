@@ -30,6 +30,11 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 		$query_params = "&limit=".$atts['limit']."&state=".$atts['state']."&sort=".$atts['sort'];
 
+		// FILTER BLOG POSTS BY TAGS
+		if( $atts['tag__in'] ){
+			$query_params .= "&tagId__in=".$atts['tag__in'];
+		}
+
 		curl_setopt_array( $curl, array(
 			CURLOPT_URL => "https://api.hubapi.com/cms/v3/blogs/posts?hapikey=".$this->hubspot_api_key.$query_params,
 			CURLOPT_RETURNTRANSFER => true,
@@ -48,10 +53,12 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 		curl_close( $curl );
 
-		if ( ! $err ) {
+		if ( ! $err && isset(	$response->results )	) {
 			ob_start();
 			include(SP_HUBSPOT_DIR_PATH.'templates/hubspot-3grid.php');
 			return ob_get_clean();
+		} else {
+			return '';
 		}
 
 	}
@@ -83,6 +90,7 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 	function set_cache( $data, $atts ){
 		$cache_key = $this->get_cache_key( $atts );
+
 		// store value in cache for minutes
 		set_transient( $cache_key, $data, ( $atts['cache'] * MINUTE_IN_SECONDS ) );
 
@@ -116,7 +124,7 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 			$data = $this->get_hubspot_posts( $atts );
 
-			if( isset( $atts['cache'] ) && $atts['cache'] ){
+			if( isset( $atts['cache'] ) && $atts['cache'] && $data ){
 				$this->set_cache( $data, $atts );
 			}
 
