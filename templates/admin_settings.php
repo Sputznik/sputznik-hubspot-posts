@@ -9,7 +9,7 @@
 	$settings = $this->get_settings();
 ?>
 <div class="wrap">
-	<h1>Sputznik Hubspot Settings</h1>
+	<h1 class="sp-hs-heading">Sputznik Hubspot Settings <button id="sp-dht-btn" class="button">Clear Cache</button></h1>
   <form method="POST">
     <div>
       <p><strong><label>HUBSPOT API KEY</label></strong></p>
