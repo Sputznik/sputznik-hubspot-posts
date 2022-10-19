@@ -63,21 +63,13 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 	}
 
-	function unique_atts(){
-		return array();
+	function get_unique_id( $data ){
+		return substr( md5( json_encode( $data ) ), 0, 8 );
 	}
 
 	function get_cache_key( $atts ){
 		$atts = $this->get_atts( $atts );
-
-		$cache_key = $this->shortcode;
-
-		$unique_atts = $this->unique_atts();
-
-		foreach( $unique_atts as $unique_att ){
-			$cache_key .= $atts[$unique_att];
-		}
-
+		$cache_key = $this->shortcode."_".$this->get_unique_id( $atts );
 		return $cache_key;
 	}
 

@@ -10,10 +10,6 @@ class SP_HUBSPOT_POSTS_SHORTCODE extends SP_HUBSPOT_SHORTCODE{
 
 	}
 
-	function unique_atts(){
-		return array( 'limit', 'state', 'sort', 'tag__in' );
-	}
-
 	function get_default_atts(){
 		return array(
       'limit' 	=> 3,
