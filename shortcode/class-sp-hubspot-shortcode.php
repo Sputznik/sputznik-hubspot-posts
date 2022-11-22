@@ -9,10 +9,11 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 	function __construct(){
 
-		// SET THE HUBSPOT API KEY
+		// SET THE HUBSPOT ACCESS TOKEN
 		$this->set_hubspot_api();
 
-		add_shortcode( $this->shortcode, array( $this, 'main_shortcode' ), 100 );
+		add_shortcode( $this->shortcode, array( $this, 'main_shortcode' ) );
+
 	}
 
 	function get_atts( $atts ){
@@ -36,7 +37,7 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 		}
 
 		curl_setopt_array( $curl, array(
-			CURLOPT_URL => "https://api.hubapi.com/cms/v3/blogs/posts?hapikey=".$this->hubspot_api_key.$query_params,
+			CURLOPT_URL => "https://api.hubapi.com/cms/v3/blogs/posts?$query_params",
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 10,
@@ -44,7 +45,8 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "GET",
 			CURLOPT_HTTPHEADER => array(
-				"accept: application/json"
+				"accept: application/json",
+				"Authorization: Bearer $this->hubspot_api_key"
 			),
 		));
 
@@ -53,7 +55,7 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 		curl_close( $curl );
 
-		if ( ! $err && isset(	$response->results )	) {
+		if ( ! $err && isset(	$response->results ) && $response->results ) {
 			ob_start();
 			include(SP_HUBSPOT_DIR_PATH.'templates/hubspot-3grid.php');
 			return ob_get_clean();
@@ -103,7 +105,7 @@ class SP_HUBSPOT_SHORTCODE extends SP_HUBSPOT_BASE{
 
 		// SHOW ERROR IF API KEY IS NOT SET
 		if( empty( $this->hubspot_api_key ) ){
-			return "Add Hubspot Api Key";
+			return "Add Hubspot Access Token";
 		}
 
 		/* CHECK IF THE DATA EXISTS IN CACHE */
